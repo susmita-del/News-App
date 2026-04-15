@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <link rel="icon" href="https://png.pngtree.com/png-clipart/20230407/original/pngtree-best-quality-product-badge-logo-shape-png-image_9035045.png" type="image/x-icon">
+    <title>The Fastest News</title>
+    <style>
+
+        nav{
+            background-color: #777;
+            color: black;
+        }
+        .logo{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+        }
+        .input-group{
+            box-sizing: border-box;
+
+            /* display: inline-block; */
+            width: 180px;
+            height: 130px;
+            margin: 30px;
+            padding: 50px;
+            
+        }
+        .btn{
+            border: 2px solid black;
+            color: black;
+            font-weight: bold;
+            background-color: rgb(221, 162, 141);
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+        }
+
+        .dark-mode .card {
+            background-color: #444;
+            border-color: #555;
+        }
+
+
+       /* Adjustments for smaller screens */
+       @media (max-width: 768px) {
+            .navbar-nav {text-align: center;}
+       }
+        /* Search Bar Styling */
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px; /* Make space for the icon */
+            border: 1px solid #ccc;
+            border-radius: 30px; /* Rounded corners */
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #search-input:focus {
+            border-color: #3498db;
+        }
+
+        #search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        #search-button svg {
+            width: 20px;
+            height: 20px;
+            fill: #777;
+            transition: fill 0.3s;
+        }
+
+        #search-button:hover svg {
+            fill: #3498db;
+        }
+  /* Card styling */
+ /* Card Hover Animation */
+.card {
+    box-sizing: border-box;
+    margin: 0 auto;   /* Center align cards */
+    padding-left: 30px;
+    background: var(--card);
+    border-radius: 12px;
+    /* overflow: hidden; */
+    box-shadow: var(--shadow);
+    /* display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px; */
+    /* flex-direction: column; */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(2, 6, 23, 0.12);
+  }
+  
+  
+  
+        /* Card favorite button */
+        .favorite-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: grey;
+      }
+      .favorite-btn.active {
+          color: red;
+      }
+
+
+      /* Footer */
+        footer{
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0 10px;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    text-align: left;
+    padding-bottom: 20px;
+}
+.footer-section {
+    flex: 1;
+    padding: 0 20px;
+    min-width: 250px;
+}
+.quick-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Social Icons */
+.social-links ul {
+    list-style: none;
+    padding: 0;
+}
+.quick-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.quick-links a:hover {
+    color: #fff;
+}
+.footer-section h4 {
+    margin-bottom: 15px;
+}
+.social-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #333;
+    color: #fff;
+    margin: 0 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    border: 1px solid #555;
+}
+.social-icon:hover {
+    background-color: #555;
+    color: #fff;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <img src="Image/logo.png" class="logo" alt="">
+      <a class="navbar-brand" href="#">GGI</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dactive">
+            <a class="nav-link" href="Index.html">Home </a>
+          </li>
+           <!-- <li class="nav-item dactive">
+            <a class="nav-link" href="#">Details</a>
+            <a class="nav-link" href="#">Details <span class="sr-only">(current)</span></a>
+          </li> -->
+           <li class="nav-item dactive">
+            <a class="nav-link" id="navContact" href="Contact.html">Contact Us</a>
+          </li>
+        </li>
+        <li class="nav-item dactive">
+       
+         <a class="nav-link" id="navContact" href="Favorites.html">Favorites</a>
+       </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-language"></i>
+
+                  Language
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item lang-item" href="#" data-lang="en">English</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="de">German</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="es">Español</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="fr">Français</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="it">Italiano</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="pt">Português</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="ru">Русский</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="zh">中文</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="hi">हिन्दी</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="bn">বাংলা</a>
+                  <a class="dropdown-item lang-item" href="#" data-lang="mr">मराठी</a>
+                </div>
+              </li>
+        </ul>
+         <!-- Dark Mode Toggle -->
+         <button id="darkModeToggle" class="btn btn-outline-light ml-2">Dark Mode</button>
+      </div>
+    </nav>
+    <!-- End of nav bar -->
+
+
+      <!-- Search Bar -->
+      <div class="container">
+        <h1>Live News Search</h1>
+        <form id="search-form">
+            <div class="search-container">
+                <input type="search" id="search-input" placeholder="Search for news..." required>
+                <button type="submit" id="search-button" aria-label="Search">
+                    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                </button>
+            </div>
+        </form>
+    </div>
+      <!-- End of Search Bar -->
+
+
+      <!-- Card body -->
+     <div class="col-md-12">
+       <div class="col-md-4" id="finaldata">
+        <div class="card" id="newsCard">
+
+        </div>
+
+       </div>
+     </div>
+
+
+
+       <!-- Footer -->
+
+       <footer>
+        <div class="footer-content">
+            <div class="footer-section quick-links">
+                <h4 data-translate="quickLinks">Quick Links</h4>
+                <ul>
+                    <li><a href="#" data-translate="tnc">T&C</a></li>
+                    <li><a href="Contact.html" data-translate="contactUs">Contact Us</a></li>
+                    <li><a href="#" data-translate="advertise">Advertise with Us</a></li>
+                    <li><a href="#" data-translate="subscribe">Subscribe</a></li>
+                    <li><a href="#" data-translate="privacyPolicy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social-links">
+                <h4 data-translate="followUs">Follow Us</h4>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <p class="copyright">Copyright © 2025 GGI</p>
+      </footer>
+
+   <!-- End of Footer -->
+
+   <script>
+      // --- Language Functionality ---
+      const translations = {
+            en: {
+                quickLinks: "Quick Links",
+                tnc: "T&C",
+                contactUs: "Contact Us",
+                advertise: "Advertise with Us",
+                subscribe: "Subscribe",
+                privacyPolicy: "Privacy Policy",
+                followUs: "Follow Us"
+            },
+            de: {
+                quickLinks: "Schnelle Links",
+                tnc: "AGB",
+                contactUs: "Kontaktiere uns",
+                advertise: "Werben Sie bei uns",
+                subscribe: "Abonnieren",
+                privacyPolicy: "Datenschutz-Bestimmungen",
+                followUs: "Folge uns"
+            },
+            es: {
+                quickLinks: "Enlaces rápidos",
+                tnc: "T&C",
+                contactUs: "Contáctenos",
+                advertise: "Anúnciate con nosotros",
+                subscribe: "Suscribir",
+                privacyPolicy: "Política de privacidad",
+                followUs: "Síganos"
+            },
+            fr: {
+                quickLinks: "Liens rapides",
+                tnc: "T&C",
+                contactUs: "Contactez-nous",
+                advertise: "Faites de la publicité avec nous",
+                subscribe: "S'abonner",
+                privacyPolicy: "Politique de confidentialité",
+                followUs: "Suivez-nous"
+            },
+            it: {
+                quickLinks: "Link veloci",
+                tnc: "T&C",
+                contactUs: "Contattaci",
+                advertise: "Pubblicizza con noi",
+                subscribe: "Sottoscrivi",
+                privacyPolicy: "Politica sulla riservatezza",
+                followUs: "Seguici"
+            },
+            pt: {
+                quickLinks: "Links Rápidos",
+                tnc: "T&C",
+                contactUs: "Contate-Nos",
+                advertise: "Anuncie conosco",
+                subscribe: "Se inscrever",
+                privacyPolicy: "Política de Privacidade",
+                followUs: "Siga-nos"
+            },
+            ru: {
+                quickLinks: "Быстрые ссылки",
+                tnc: "Условия и положения",
+                contactUs: "Связаться с нами",
+                advertise: "Рекламируйте с нами",
+                subscribe: "Подписаться",
+                privacyPolicy: "Политика конфиденциальности",
+                followUs: "Подписывайтесь на нас"
+            },
+            zh: {
+                quickLinks: "快速链接",
+                tnc: "条款和条件",
+                contactUs: "联系我们",
+                advertise: "与我们一起做广告",
+                subscribe: "订阅",
+                privacyPolicy: "隐私政策",
+                followUs: "关注我们"
+            },
+            hi: {
+                quickLinks: "त्वरित लिंक",
+                tnc: "नियम एवं शर्तें",
+                contactUs: "संपर्क करें",
+                advertise: "हमारे साथ विज्ञापन करें",
+                subscribe: "सब्सक्राइब करें",
+                privacyPolicy: "गोपनीयता नीति",
+                followUs: "हमें फॉलो करें"
+            },
+            bn: {
+                quickLinks: "দ্রুত লিঙ্ক",
+                tnc: "শর্তাবলী",
+                contactUs: "যোগাযোগ করুন",
+                advertise: "আমাদের সাথে বিজ্ঞাপন দিন",
+                subscribe: "সাবস্ক্রাইব করুন",
+                privacyPolicy: "গোপনীয়তা নীতি",
+                followUs: "আমাদের অনুসরণ করুন"
+            },
+            mr: {
+                quickLinks: "द्रुत दुवे",
+                tnc: "नियम आणि अटी",
+                contactUs: "आमच्याशी संपर्क साधा",
+                advertise: "आमच्यासोबत जाहिरात करा",
+                subscribe: "सदस्यता घ्या",
+                privacyPolicy: "गोपनीयता धोरण",
+                followUs: "आम्हाला फॉलो करा"
+            }
+        };
+    
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+        });
+            fetchNews(lang);
+        }
+    
+        document.querySelectorAll('.lang-item').forEach(item => {
+            item.addEventListener('click', (event) => {
+                event.preventDefault();
+                const selectedLang = event.target.getAttribute('data-lang');
+                setLanguage(selectedLang);
+    
+              });
+            });
+       let currentLanguage = 'en';
+
+            // Data Fetching
+        function fetchNews(query, language = 'en') {
+            const apiKey = 'a7fd61bacfa046b89e4f93fbeb403322';
+            let apiUrl = `https://newsapi.org/v2/everything?language=${language}&sortBy=popularity&apiKey=${apiKey}`;
+            if (query) apiUrl += `&q=${query}`;
+    
+            // fetch("https://newsapi.org/v2/everything?domains=wsj.com&apiKey=a7fd61bacfa046b89e4f93fbeb403322")
+            fetch(apiUrl)
+            .then(a=>a.json())
+            .then(d=>{
+          var fd=" ";
+          d.articles.forEach((i) => {
+            fd+=`
+    
+
+            <div class="cardm-3" style="width: 18rem;">
+                <button class="favorite-btn top-left corner" onclick="toggleFavorite(this)">
+            <i class="fas fa-heart"></i> 
+         </button>
+          <img src="${i.urlToImage}" class="card-img-top" alt="...">
+          <div class="card-body">
+      
+         <h5 class="card-title"> ${i.title}</h5>
+          <h5 class="card-title"> ${i.author}</h5>
+        
+          <h5 class="card-title"> ${i.description}</h5>
+    
+        
+        
+         <a href='${i.url}' class="btn btn-primary">Read More</a>
+           </div>
+         </div>
+          `
+
+          });
+          document.getElementById("finaldata").innerHTML=fd;
+         })
+        
+       .catch(error=>{
+                    console.error("Error fetching news:", error);
+                    document.getElementById("finaldata").innerHTML = "<p>Failed to load news. Please try again later.</p>";
+                });
+           
+        }
+
+        // Dark mode toggle functionality
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+            });
+    
+    
+            // Favorite button fuctionality
+            function toggleFavorite(button) {
+                const card = button.closest('.card');
+                const article = {
+                    url: card.querySelector('.btn').href,
+                    title: card.querySelector('.card-title').textContent,
+                    description: card.querySelector('.card-title').textContent,
+                    urlToImage: card.querySelector('.card-img-top').src,
+                };
+                button.classList.toggle('active');
+                saveFavorites(article);
+            }
+
+             // Initial load of news and language
+            document.addEventListener('DOMContentLoaded', () => {
+              setLanguage('en');
+            });
+
+            document.addEventListener('DOMContentLoaded', () => fetchNews({ country: 'us' }));
+    
+            function saveFavorites(article) {
+                let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                const articleIndex = favorites.findIndex(fav => fav.url === article.url);
+
+                if (articleIndex > -1) {
+                    favorites.splice(articleIndex, 1);
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+
+                } else {
+
+                    favorites.push(article);
+                    localStorage.setItem('favorites', JSON.stringify(favorites));
+
+                }
+            }
+
+
+            document.getElementById('search-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // fetchNews(currentLanguage, searchTerm);
+                fetchNews(anonymous, currentLanguage)
+            });
+
+
+
+
+
+
+
+
+
+
+
+    
+   </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+      
+</body>
+
+</html>

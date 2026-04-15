@@ -488,13 +488,14 @@
     };
 
     function setLanguage(lang) {
+      currentLanguage = lang;
       document.querySelectorAll('[data-translate]').forEach(el => {
         const key = el.getAttribute('data-translate');
         if (translations[lang] && translations[lang][key]) {
           el.textContent = translations[lang][key];
         }
       });
-      fetchNews("technology", lang);
+      fetchNews("technology", currentLanguage);
     }
 
     document.querySelectorAll('.lang-item').forEach(item => {
@@ -509,19 +510,17 @@
 
     // --- Fetch News ---
     function fetchNews(query = "", language = "en") {
-      const apiKey = "a7fd61bacfa046b89e4f93fbeb403322";
-      let apiUrl;
-      // Use the more flexible 'top-headlines' endpoint for categories and general views
-      // and 'everything' only for specific user searches.
-      if (query) {
-        apiUrl = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=${language}&sortBy=popularity&apiKey=${apiKey}`;
-      } else {
-        apiUrl = `https://newsapi.org/v2/top-headlines?category=general&language=${language}&apiKey=${apiKey}`;
-      }
-      fetch(apiUrl)
+      const params = new URLSearchParams({
+        language,
+        query
+      });
+
+      fetch(`/api/news?${params.toString()}`)
         .then(a => a.json())
         .then(d => {
-          if (!d.articles) throw new Error("No articles found");
+          if (!d.articles) {
+            throw new Error(d.error || "No articles found");
+          }
           let fd = "";
           d.articles.forEach(i => {
             // Escape single quotes in the article object for the data attribute
@@ -608,7 +607,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const isDarkMode = localStorage.getItem('darkMode') === 'true';
       applyDarkMode(isDarkMode);
-      fetchNews("", "en"); // Fetch general news on initial load
+      fetchNews("", currentLanguage); // Fetch general news on initial load
 
       darkModeToggle.addEventListener('click', () => {
         const wasDarkMode = body.classList.contains('dark-mode');
@@ -619,7 +618,7 @@
       // Ticker item click listener
       document.querySelectorAll('.ticker-item').forEach(item => {
         item.addEventListener('click', (e) => {
-          const category = e.target.getAttribute('data-category');
+          const category = e.currentTarget.getAttribute('data-category');
           document.getElementById('search-input').value = category; // Optional: update search bar
           fetchNews(category, currentLanguage);
         });
